@@ -1,0 +1,24 @@
+alert:
+- debug
+alert_threat.description: Detects unsigned msix package installations.
+alert_threat.falsepositives:
+- developers testing applications
+alert_threat.framework: MITRE ATT&CK
+alert_threat.reference:
+- https://learn.microsoft.com/en-us/windows/msix/package/unsigned-package
+alert_threat.technique:
+- attack.defense_evasion
+alert_threat.technique.id:
+- T1059.003
+filter:
+- query:
+    query_string:
+      query: (process.executable:*\\Add-AppPackage AND process.args: -AllowUnsigned)
+index: winlogbeat-*
+name: unsigned_MSIX_application_installation
+priority: 3
+realert:
+  minutes: 15
+type: any
+
+
