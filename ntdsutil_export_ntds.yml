@@ -1,0 +1,23 @@
+alert:
+- debug
+alert_threat.description: Detects exporting ntds.dit (with any filename) via ifm
+alert_threat.falsepositives:
+- legitimate ifm (installation media file) creation for creating a new DC (exremely rare)
+alert_threat.framework: MITRE ATT&CK
+alert_threat.reference:
+- https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc732530(v=ws.11)
+- https://twitter.com/0gtweet/status/1621528688553517056
+alert_threat.technique:
+- T1003.003
+alert_threat.technique.id:
+- attack.collection
+filter:
+- query:
+    query_string:
+      query: (process.executable: ntdsutil AND process.args:("activate instance ntds" AND "ifm" AND "create full"))
+index: winlogbeat-*
+name: ntdsutil_export_ntds.dit_with_ifm
+priority: 1
+realert:
+  minutes: 15
+type: any
