@@ -15,7 +15,7 @@ filter:
     query_string:
       query: (process.executable:*\\Add-AppPackage AND process.args: -AllowUnsigned)
 index: winlogbeat-*
-name: unsigned_MSIX_application_installation
+name: win_unsigned_MSIX_application_installation
 priority: 3
 realert:
   minutes: 15

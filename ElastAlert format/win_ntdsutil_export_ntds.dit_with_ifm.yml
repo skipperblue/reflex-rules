@@ -16,7 +16,7 @@ filter:
     query_string:
       query: (process.executable: ntdsutil AND process.args:("activate instance ntds" AND "ifm" AND "create full"))
 index: winlogbeat-*
-name: ntdsutil_export_ntds.dit_with_ifm
+name: win_ntdsutil_export_ntds.dit_with_ifm
 priority: 1
 realert:
   minutes: 15
