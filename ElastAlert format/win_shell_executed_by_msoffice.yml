@@ -3,6 +3,7 @@ alert:
 alert_threat.description: 
 - Detects cmd as a child process of OneNote, which is an indicator of an attack method used by qakbot and others in q1 2023
 - email (or other phish) > drop .one file on host which is opened > .cmd > .ps > .dll
+- expanded for similar activity too
 - This still needs to be tested
 alert_threat.falsepositives:
 - onenote executing cmd under other benign circumstances
@@ -17,9 +18,9 @@ alert_threat.technique.id:
 filter:
 - query:
     query_string:
-      query: (process.parent.executable:ONENOTE.EXE AND process.executable:cmd.exe)
+      query: (process.parent.executable:(ONENOTE.EXE OR WINWORD.EXE)AND process.executable:(cmd.exe OR pwsh.exe OR powershell.exe))
 index: winlogbeat-*
-name: win_cmd_executed_by_onenote
+name: win_shell_executed_by_msoffice
 priority: 2
 realert:
   minutes: 15
